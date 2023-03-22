@@ -19,6 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -31,10 +36,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(selectCollectionDT, style: style20(fontWeight: FontWeight.bold)),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 20),
-                    child: Row(children: const [
-                      DateWidget(title: todayStr, date: "20 Dec", isSelected: true),
-                      DateWidget(title: tomorrowStr, date: "21 Dec", isSelected: false),
-                      DateWidget(title: selectDateStr, date: "22 Dec", isSelected: false),
+                    child: Row(children: [
+                      DateWidget(
+                        title: todayStr,
+                        date: DateTime.now(),
+                        selectedDate: homeController.selectedCollectionDate.value,
+                        onDateSelected: (DateTime selectedDate) {
+                          homeController.selectedCollectionDate.value = selectedDate;
+                        },
+                      ),
+                      DateWidget(
+                        title: tomorrowStr,
+                        date: DateTime.now().add(const Duration(days: 1)),
+                        selectedDate: homeController.selectedCollectionDate.value,
+                        onDateSelected: (DateTime selectedDate) {
+                          homeController.selectedCollectionDate.value = selectedDate;
+                        },
+                      ),
+                      DateWidget(
+                        title: selectDateStr,
+                        date: DateTime.now().add(const Duration(days: 2)),
+                        selectedDate: homeController.selectedCollectionDate.value,
+                        onDateSelected: (DateTime selectedDate) {
+                          homeController.selectedCollectionDate.value = selectedDate;
+                        },
+                      ),
                     ]),
                   ),
                   Row(
@@ -69,10 +95,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(selectDeliveryDT, style: style20(fontWeight: FontWeight.bold)),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 20),
-                    child: Row(children: const [
-                      DateWidget(title: todayStr, date: "20 Dec", isSelected: true),
-                      DateWidget(title: tomorrowStr, date: "21 Dec", isSelected: false),
-                      DateWidget(title: selectDateStr, date: "22 Dec", isSelected: false),
+                    child: Row(children: [
+                      DateWidget(
+                        title: todayStr,
+                        date: DateTime.now(),
+                        selectedDate: homeController.selectedDeliveryDate.value,
+                        onDateSelected: (DateTime selectedDate) {
+                          homeController.selectedDeliveryDate.value = selectedDate;
+                        },
+                      ),
+                      DateWidget(
+                        title: tomorrowStr,
+                        date: DateTime.now().add(const Duration(days: 1)),
+                        selectedDate: homeController.selectedDeliveryDate.value,
+                        onDateSelected: (DateTime selectedDate) {
+                          homeController.selectedDeliveryDate.value = selectedDate;
+                        },
+                      ),
+                      DateWidget(
+                        title: selectDateStr,
+                        date: DateTime.now().add(const Duration(days: 2)),
+                        selectedDate: homeController.selectedDeliveryDate.value,
+                        onDateSelected: (DateTime selectedDate) {
+                          homeController.selectedDeliveryDate.value = selectedDate;
+                        },
+                      ),
                     ]),
                   ),
                   Row(
@@ -112,8 +159,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(deliveryChargeNote, style: style16(), textAlign: TextAlign.center),
                     ),
                   ),
-                  Spacer(),
-                  AppButton(btnTxt: continueStr, onTap: () {})
+                  const Spacer(),
+                  AppButton(
+                      btnTxt: continueStr,
+                      onTap: () {
+                        homeController.validateDateTime(context);
+                      })
                 ],
               ),
             )),

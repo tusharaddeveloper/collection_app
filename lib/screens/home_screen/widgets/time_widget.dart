@@ -25,7 +25,7 @@ class TimeWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: DropdownButton<String>(
-              icon: const Icon(Icons.keyboard_arrow_down,color: blackColor,size: 28),
+              icon: const Icon(Icons.keyboard_arrow_down, color: blackColor, size: 28),
               isExpanded: true,
               hint: Text(selectTimeStr, style: style16()),
               value: selectedValue,
@@ -36,10 +36,7 @@ class TimeWidget extends StatelessWidget {
                 onValueChange(value);
               },
               items: timeList.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
+                return DropdownMenuItem<String>(value: value, child: Text(value));
               }).toList(),
             ),
           ),
